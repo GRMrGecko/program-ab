@@ -23,6 +23,8 @@ import org.alicebot.ab.utils.JapaneseUtils;
 
 import java.io.*;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * Manage client predicates
@@ -61,6 +63,31 @@ public class Predicates extends HashMap<String, String> {
         if (result == null) result = MagicStrings.default_get;
 		//MagicBooleans.trace("in predicates.get, returning: " + result);
         return result;
+    }
+	
+    /**
+     * Save file
+     *
+     * @param file name
+     */
+    public void save(String filename) {
+		System.out.println("Saving "+filename);
+        try {
+        	BufferedWriter bw = new BufferedWriter(new FileWriter(filename));
+			Iterator it = super.entrySet().iterator();
+			while (it.hasNext()) {
+				Map.Entry pairs = (Map.Entry)it.next();
+                bw.write(pairs.getKey() + ":" + pairs.getValue());
+                bw.newLine();
+				it.remove();
+			}
+			bw.flush();
+			bw.close();
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     /**

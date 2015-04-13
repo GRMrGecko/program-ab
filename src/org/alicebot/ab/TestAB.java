@@ -35,9 +35,12 @@ public class TestAB {
                 }
             }
             else if (textLine.equals("ab")) testAB(bot, sample_file);
+            else if (textLine.startsWith("uc ")) {
+            	chatSession.changePredicates(textLine.substring(3));
+            }
             else {
                 String request = textLine;
-                if (MagicBooleans.trace_mode) System.out.println("STATE="+request+":THAT="+chatSession.thatHistory.get(0).get(0)+":TOPIC="+chatSession.predicates.get("topic"));
+                if (MagicBooleans.trace_mode) System.out.println("STATE="+request+":THAT="+chatSession.session.thatHistory.get(0).get(0)+":TOPIC="+chatSession.predicates.get("topic"));
                 String response = chatSession.multisentenceRespond(request);
                 while (response.contains("&lt;")) response = response.replace("&lt;","<");
                 while (response.contains("&gt;")) response = response.replace("&gt;",">");
@@ -85,7 +88,7 @@ public class TestAB {
             else if (textLine.startsWith("#")) testOutput.writeLine(textLine);
             else {
                 String request = textLine;
-                if (MagicBooleans.trace_mode) System.out.println("STATE="+request+":THAT="+chatSession.thatHistory.get(0).get(0)+":TOPIC="+chatSession.predicates.get("topic"));
+                if (MagicBooleans.trace_mode) System.out.println("STATE="+request+":THAT="+chatSession.session.thatHistory.get(0).get(0)+":TOPIC="+chatSession.predicates.get("topic"));
                 String response = chatSession.multisentenceRespond(request);
                 while (response.contains("&lt;")) response = response.replace("&lt;","<");
                 while (response.contains("&gt;")) response = response.replace("&gt;",">");

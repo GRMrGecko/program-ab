@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
+/*
  * The core AIML parser and interpreter.
  * Implements the AIML 2.0 specification as described in
  * AIML 2.0 Working Draft document
@@ -38,7 +38,7 @@ public class AIMLProcessor {
 
 	static private boolean DEBUG = false;
 
-    /**
+    /*
      * when parsing an AIML file, process a category element.
      *
      * @param n        current XML parse node.
@@ -105,7 +105,7 @@ public class AIMLProcessor {
         }
         return s.trim();
     }
-    /**
+    /*
      * convert an AIML file to a list of categories.
      *
      * @param directory     directory containing the AIML file.
@@ -157,13 +157,13 @@ public class AIMLProcessor {
     public static int repeatCount = 0;
     // Helper functions:
     public static int checkForRepeat(String input, Chat chatSession) {
-        if (input.equals(chatSession.inputHistory.get(1))) {
+        if (input.equals(chatSession.session.inputHistory.get(1))) {
             return 1;
         }
         else return 0;
     }
 
-    /**
+    /*
      * generate a bot response to a single sentence input.
      *
      * @param input      the input sentence.
@@ -179,7 +179,7 @@ public class AIMLProcessor {
         }
     }
 
-    /**
+    /*
      * generate a bot response to a single sentence input.
      *
      * @param input      input statement.
@@ -210,7 +210,7 @@ public class AIMLProcessor {
         return response;
     }
 
-    /** capitalizeString:
+    /* capitalizeString:
      * from http://stackoverflow.com/questions/1892765/capitalize-first-char-of-each-word-in-a-string-java
      *
      * @param string   the string to capitalize
@@ -231,7 +231,7 @@ public class AIMLProcessor {
         return String.valueOf(chars);
     }
 
-    /**
+    /*
      * explode a string into individual characters separated by one space
      *
      * @param input             input string
@@ -246,7 +246,7 @@ public class AIMLProcessor {
 
     // Parsing and evaluation functions:
 
-    /**
+    /*
      * evaluate the contents of an AIML tag.
      * calls recursEval on child tags.
      *
@@ -276,7 +276,7 @@ public class AIMLProcessor {
         return result;
     }
 
-    /**
+    /*
      * pass thru generic XML (non-AIML tags, such as HTML) as unevaluated XML
      *
      * @param node       current parse node
@@ -291,7 +291,7 @@ public class AIMLProcessor {
 		return result;
     }
 
-    /**
+    /*
      * return a string of unevaluated XML.      When the AIML parser
      * encounters an unrecognized XML tag, it simply passes through the
      * tag in XML form.  For example, if the response contains HTML
@@ -325,7 +325,7 @@ public class AIMLProcessor {
     }
     public static int trace_count = 0;
 
-    /**
+    /*
      * implements AIML <srai> tag
      *
      * @param node       current parse node.
@@ -364,7 +364,7 @@ public class AIMLProcessor {
         return result;
     }
 
-    /**
+    /*
      * in AIML 2.0, an attribute value can be specified by either an XML attribute value
      * or a subtag of the same name.  This function tries to read the value from the XML attribute first,
      * then tries to look for the subtag.
@@ -398,7 +398,7 @@ public class AIMLProcessor {
         return result;
     }
 
-    /**
+    /*
      * access external web service for response
      * implements <sraix></sraix>
      * and its attribute variations.
@@ -420,7 +420,7 @@ public class AIMLProcessor {
 
     }
 
-    /**
+    /*
      * map an element of one string set to an element of another
      * Implements <map name="mapname"></map>   and <map><name>mapname</name></map>
      *
@@ -445,7 +445,7 @@ public class AIMLProcessor {
         return result;
     }
 
-    /**
+    /*
      * set the value of an AIML predicate.
      * Implements <set name="predicate"></set> and <set var="varname"></set>
      *
@@ -476,7 +476,7 @@ public class AIMLProcessor {
 		return result;
     }
 
-    /** get the value of an AIML predicate.
+    /* get the value of an AIML predicate.
      * implements <get name="predicate"></get>  and <get var="varname"></get>
      *
      * @param node     current XML parse node
@@ -512,7 +512,7 @@ public class AIMLProcessor {
         return result;
     }
 
-    /**
+    /*
      * return the value of a bot property.
      * implements {{{@code <bot name="property"/>}}}
      *
@@ -530,7 +530,7 @@ public class AIMLProcessor {
         return result;
     }
 
-    /**
+    /*
      * implements formatted date tag <date jformat="format"/> and <date format="format"/>
      *
      * @param node     current XML parse node
@@ -548,7 +548,7 @@ public class AIMLProcessor {
         return dateAsString;
     }
 
-    /**
+    /*
      *    <interval><style>years</style></style><jformat>MMMMMMMMM dd, yyyy</jformat><from>August 2, 1960</from><to><date><jformat>MMMMMMMMM dd, yyyy</jformat></date></to></interval>
      */
 
@@ -572,7 +572,7 @@ public class AIMLProcessor {
         return result;
     }
 
-    /**
+    /*
      * get the value of an index attribute and return it as an integer.
      * if it is not recognized as an integer, return 0
      *
@@ -587,7 +587,7 @@ public class AIMLProcessor {
         return index;
     }
 
-    /**
+    /*
      * implements {@code <star index="N"/>}
      * returns the value of input words matching the Nth wildcard (or AIML Set).
      *
@@ -603,7 +603,7 @@ public class AIMLProcessor {
         //System.out.println("inputStar: ps depth="+ps.depth+" index="+index+" star="+result);
         return result;
     }
-    /**
+    /*
      * implements {@code <thatstar index="N"/>}
      * returns the value of input words matching the Nth wildcard (or AIML Set) in <that></that>.
      *
@@ -616,7 +616,7 @@ public class AIMLProcessor {
         if (ps.starBindings.thatStars.star(index)==null) return "";
         else return ps.starBindings.thatStars.star(index).trim();
     }
-    /**
+    /*
      * implements <topicstar/> and <topicstar index="N"/>
      * returns the value of input words matching the Nth wildcard (or AIML Set) in a topic pattern.
      *
@@ -630,7 +630,7 @@ public class AIMLProcessor {
         else return ps.starBindings.topicStars.star(index).trim();
     }
 
-    /**
+    /*
      * return the client ID.
      * implements {@code <id/>}
      *
@@ -643,7 +643,7 @@ public class AIMLProcessor {
     private static String id(Node node, ParseState ps) {
         return ps.chatSession.customerId;
     }
-    /**
+    /*
      * return the size of the robot brain (number of AIML categories loaded).
      * implements {@code <size/>}
      *
@@ -656,7 +656,7 @@ public class AIMLProcessor {
         int size = ps.chatSession.bot.brain.getCategories().size();
         return String.valueOf(size);
     }
-    /**
+    /*
      * return the size of the robot vocabulary (number of words the bot can recognize).
      * implements {@code <vocabulary/>}
      *
@@ -669,7 +669,7 @@ public class AIMLProcessor {
         int size = ps.chatSession.bot.brain.getVocabulary().size();
         return String.valueOf(size);
     }
-    /**
+    /*
      * return a string indicating the name and version of the AIML program.
      * implements {@code <program/>}
      *
@@ -682,7 +682,7 @@ public class AIMLProcessor {
         return MagicStrings.program_name_version;
     }
 
-    /**
+    /*
      * implements the (template-side) {@code <that index="M,N"/>}    tag.
      * returns a normalized sentence.
      *
@@ -703,12 +703,12 @@ public class AIMLProcessor {
                 System.out.println("That index="+index+","+jndex);
             } catch (Exception ex) { ex.printStackTrace(); }
         String that = MagicStrings.unknown_history_item;
-        History hist = ps.chatSession.thatHistory.get(index);
+        History hist = ps.chatSession.session.thatHistory.get(index);
         if (hist != null) that = (String)hist.get(jndex);
         return that.trim();
     }
 
-    /**
+    /*
      * implements {@code <input index="N"/>} tag
      *
      * @param node     current XML parse node
@@ -718,9 +718,9 @@ public class AIMLProcessor {
 
     private static String input(Node node, ParseState ps) {
         int index=getIndexValue(node, ps);
-        return ps.chatSession.inputHistory.getString(index);
+        return ps.chatSession.session.inputHistory.getString(index);
     }
-    /**
+    /*
      * implements {@code <request index="N"/>} tag
      *
      * @param node     current XML parse node
@@ -729,9 +729,9 @@ public class AIMLProcessor {
      */
     private static String request(Node node, ParseState ps) {             // AIML 2.0
         int index=getIndexValue(node, ps);
-        return ps.chatSession.requestHistory.getString(index).trim();
+        return ps.chatSession.session.requestHistory.getString(index).trim();
     }
-    /**
+    /*
      * implements {@code <response index="N"/>} tag
      *
      * @param node     current XML parse node
@@ -740,9 +740,9 @@ public class AIMLProcessor {
      */
     private static String response(Node node, ParseState ps) {            // AIML 2.0
         int index=getIndexValue(node, ps);
-        return ps.chatSession.responseHistory.getString(index).trim();
+        return ps.chatSession.session.responseHistory.getString(index).trim();
     }
-    /**
+    /*
      * implements {@code <system>} tag.
      * Evaluate the contents, and try to execute the result as
      * a command in the underlying OS shell.
@@ -762,7 +762,7 @@ public class AIMLProcessor {
 		String result = IOUtils.system(evaluatedContents, MagicStrings.system_failed);
 		return result;
     }
-    /**
+    /*
      * implements {@code <think>} tag
      *
      * Evaluate the tag contents but return a blank.
@@ -777,7 +777,7 @@ public class AIMLProcessor {
         return "";
     }
 
-    /**
+    /*
      * Transform a string of words (separtaed by spaces) into
      * a string of individual characters (separated by spaces).
      * Explode "ABC DEF" = "A B C D E F".
@@ -790,7 +790,7 @@ public class AIMLProcessor {
         String result = evalTagContent(node, ps, null);
         return explode(result);
     }
-    /**
+    /*
      * apply the AIML normalization pre-processor to the evaluated tag contenst.
      * implements {@code <normalize>} tag.
      *
@@ -806,7 +806,7 @@ public class AIMLProcessor {
 		//MagicBooleans.trace("in AIMLPreprocessor.normalize(), returning: " + returning);
         return returning;
     }
-    /**
+    /*
      * apply the AIML denormalization pre-processor to the evaluated tag contenst.
      * implements {@code <normalize>} tag.
      *
@@ -818,7 +818,7 @@ public class AIMLProcessor {
         String result = evalTagContent(node, ps, null);
         return ps.chatSession.bot.preProcessor.denormalize(result);
     }
-    /**
+    /*
      * evaluate tag contents and return result in upper case
      * implements {@code <uppercase>} tag
      *
@@ -830,7 +830,7 @@ public class AIMLProcessor {
         String result = evalTagContent(node, ps, null);
         return result.toUpperCase();
     }
-    /**
+    /*
      * evaluate tag contents and return result in lower case
      * implements {@code <lowercase>} tag
      *
@@ -842,7 +842,7 @@ public class AIMLProcessor {
         String result = evalTagContent(node, ps, null);
         return result.toLowerCase();
     }
-    /**
+    /*
      * evaluate tag contents and capitalize each word.
      * implements {@code <formal>} tag
      *
@@ -854,7 +854,7 @@ public class AIMLProcessor {
         String result = evalTagContent(node, ps, null);
         return capitalizeString(result);
     }
-    /**
+    /*
      * evaluate tag contents and capitalize the first word.
      * implements {@code <sentence>} tag
      *
@@ -867,7 +867,7 @@ public class AIMLProcessor {
         if (result.length() > 1) return result.substring(0, 1).toUpperCase()+result.substring(1, result.length());
         else return "";
     }
-    /**
+    /*
      * evaluate tag contents and swap 1st and 2nd person pronouns
      * implements {@code <person>} tag
      *
@@ -884,7 +884,7 @@ public class AIMLProcessor {
         result = ps.chatSession.bot.preProcessor.person(result);
         return result.trim();
     }
-    /**
+    /*
      * evaluate tag contents and swap 1st and 3rd person pronouns
      * implements {@code <person2>} tag
      *
@@ -901,7 +901,7 @@ public class AIMLProcessor {
         result = ps.chatSession.bot.preProcessor.person2(result);
         return result.trim();
     }
-    /**
+    /*
      * implements {@code <gender>} tag
      * swaps gender pronouns
      *
@@ -916,7 +916,7 @@ public class AIMLProcessor {
         return result.trim();
     }
 
-    /**
+    /*
      * implements {@code <random>} tag
      * @param node     current XML parse node
      * @param ps       AIML parse state
@@ -991,7 +991,7 @@ public class AIMLProcessor {
                 Category c;
                 if (node.getNodeName().equals("learn")) {
                     //System.out.println("node is <learn>");
-                    c = new Category(0, pattern, that, "*", template, MagicStrings.null_aiml_file);
+                    c = new Category(0, pattern, that, "*", template, MagicStrings.learned_aiml_file);
                     ps.chatSession.bot.learnGraph.addCategory(c);
                 }
                 else {// learnf
@@ -1000,13 +1000,14 @@ public class AIMLProcessor {
                     ps.chatSession.bot.learnfGraph.addCategory(c);
                 }
                 ps.chatSession.bot.brain.addCategory(c);
+				ps.chatSession.bot.writeAIMLFiles();
                   //ps.chatSession.bot.brain.printgraph();
             }
         }
         return "";
     }
 
-    /**
+    /*
      * implements {@code <condition> with <loop/>}
      * re-evaluate the conditional statement until the response does not contain {@code <loop/>}
      *
@@ -1032,7 +1033,7 @@ public class AIMLProcessor {
         return result;
     }
 
-    /**
+    /*
      * implements all 3 forms of the {@code <condition> tag}
      * In AIML 2.0 the conditional may return a {@code <loop/>}
      *
@@ -1090,7 +1091,7 @@ public class AIMLProcessor {
 
     }
 
-    /**
+    /*
      * check to see if a result contains a {@code <loop/>} tag.
      *
      * @param node     current XML parse node
@@ -1298,7 +1299,7 @@ public class AIMLProcessor {
         return "Deleted Learn Categories";
 
     }
-    /**
+    /*
      * Recursively descend the XML DOM tree, evaluating AIML and building a response.
      *
      * @param node     current XML parse node
@@ -1418,7 +1419,7 @@ public class AIMLProcessor {
         }
     }
 
-    /**
+    /*
      * evaluate an AIML template expression
      *
      * @param template      AIML template contents
@@ -1438,7 +1439,7 @@ public class AIMLProcessor {
 		//MagicBooleans.trace("in AIMLProcessor.evalTemplate() returning: " + response);
         return response;
     }
-    /**
+    /*
      * check to see if a template is a valid XML expression.
      *
      * @param template      AIML template contents

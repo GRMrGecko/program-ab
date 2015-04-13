@@ -46,6 +46,7 @@ public class MagicStrings {
     public static String unknown_aiml_file = "unknown_aiml_file.aiml";
     public static String deleted_aiml_file = "deleted.aiml";
     public static String learnf_aiml_file = "learnf.aiml";
+    public static String learned_aiml_file = "learned.aiml";
     public static String null_aiml_file = "null.aiml";
     public static String inappropriate_aiml_file = "inappropriate.aiml";
     public static String profanity_aiml_file = "profanity.aiml";
